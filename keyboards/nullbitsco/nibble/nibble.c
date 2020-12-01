@@ -46,21 +46,12 @@ bool led_update_kb(led_t led_state) {
         // It checks the status of CAPS/NUM/SCROLL lock.
         // Use Big LED to show CAPS LOCK status
         set_big_LED_r(led_state.caps_lock ? LED_ON : LED_OFF);
-        
-        if (layer_state_is(1)) {
-            set_bitc_LED(LED_DIM);
-        }
-        else if (layer_state_is(2)) {
-            set_big_LED_b(LED_ON);
-        }
-        else if (layer_state_is(3)) {
-            set_big_LED_g(LED_ON);
-        }
-        else {
-            set_bitc_LED(LED_OFF);
-            set_big_LED_g(LED_OFF);
-            set_big_LED_b(LED_OFF);
-        }
+        // Bit C LED for layer 1
+        set_bitc_LED(layer_state_is(1) ? LED_DIM : LED_OFF);
+        // Blue LED for layer 2
+        set_big_LED_b(layer_state_is(2) ? LED_ON : LED_OFF);
+        // Green LED for layer 3
+        set_big_LED_g(layer_state_is(3) ? LED_ON : LED_OFF);
     }
     return res;
 }
