@@ -26,7 +26,14 @@ enum custom_keycodes {
   AUTOCLOS_CURLYBRA,
   LATEX_PAREN,
   LATEX_SQBRA,
-  LATEX_CURLYBRA
+  LATEX_CURLYBRA,
+  LATEX_SUM,
+  LATEX_PROD,
+  LATEX_INT,
+  LATEX_NORM,
+  LATEX_R,
+  LATEX_N,
+  LATEX_Z
 };
 
 /* THIS FILE WAS GENERATED!
@@ -41,14 +48,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             TG(2), KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_PGDN,
             KC_INS, KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, MO(1), KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT),
 	[1] = LAYOUT_ansi(RESET, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_PSCR,
-            RGB_TOG, KC_TRNS, LALT(KC_F4), KC_MINS, KC_LBRC, KC_RBRC, AUTOCLOS_SQBRA, LCTL(KC_LEFT), KC_HOME, KC_NEWLINE, LCTL(KC_RGHT) , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_INS,
+            RGB_TOG, KC_TRNS, LALT(KC_F4), KC_MINS, KC_LBRC, KC_RBRC, AUTOCLOS_SQBRA, LCTL(KC_INS), KC_TRNS, KC_HOME, KC_NEWLINE, LSFT(KC_INS), KC_TRNS, KC_TRNS, KC_TRNS, KC_INS,
             KC_TRNS, KC_TRNS, KC_END, KC_PLUS, KC_LPRN, KC_RPRN, AUTOCLOS_PAREN, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_TRNS, KC_TRNS, KC_EQL, KC_HOME,
             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LCBR, KC_RCBR, AUTOCLOS_CURLYBRA, KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_END,
             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_UNDS, KC_TRNS, KC_APP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-	[2] = LAYOUT_ansi(KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, LATEX_PAREN, LATEX_PAREN, KC_MINS, KC_EQL, KC_BSPC, KC_ESC,
-            KC_MUTE, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, LATEX_SQBRA, LATEX_CURLYBRA, KC_BSLS, KC_DEL,
+	[2] = LAYOUT_ansi(KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, LATEX_PROD, LATEX_PAREN, LATEX_PAREN, KC_MINS, LATEX_SUM, KC_BSPC, KC_ESC,
+            KC_MUTE, KC_TAB, KC_Q, KC_W, KC_E, LATEX_R, KC_T, KC_Y, KC_U, LATEX_INT, KC_O, KC_P, LATEX_SQBRA, LATEX_CURLYBRA, LATEX_NORM, KC_DEL,
             KC_NO, KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_PGUP,
-            KC_TRNS, KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_PGDN,
+            KC_TRNS, KC_LSFT, LATEX_Z, KC_X, KC_C, KC_V, KC_B, LATEX_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_PGDN,
             KC_INS, KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, MO(1), KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT)
 };
 /* 
@@ -112,7 +119,56 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           SEND_STRING("\\left\\{\\right\\}" SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT));
       }
       break;
-      
+
+    case LATEX_SUM:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("\\sum_{}^{}" SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT));
+      }
+      break;
+
+    case LATEX_PROD:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("\\prod_{}^{}" SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT));
+      }
+      break;
+
+    case LATEX_INT:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("\\int_{}^{}" SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT));
+      }
+      break;
+
+    case LATEX_NORM:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("\\left\\|\\right\\|" SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT));
+      }
+      break;
+
+    case LATEX_R:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("\\mathbb{R}");
+      }
+      break;
+
+    case LATEX_N:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("\\mathbb{N}");
+      }
+      break;
+
+    case LATEX_Z:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("\\mathbb{Z}");
+      }
+      break;
+
     case RM_1: //remote macro 1
       if (record->event.pressed) {
       }
