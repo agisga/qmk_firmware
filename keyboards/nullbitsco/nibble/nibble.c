@@ -42,16 +42,31 @@
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
-        // This function is a defult QMK function.
-        // It checks the status of CAPS/NUM/SCROLL lock.
-        // Use Big LED to show CAPS LOCK status
-        set_big_LED_r(led_state.caps_lock ? LED_ON : LED_OFF);
-        // Bit C LED for layer 1
+        // Use Bit C LED for layer 1, while keeping the Big LED state unchanged
         set_bitc_LED(layer_state_is(1) ? LED_DIM : LED_OFF);
-        // Blue LED for layer 2
-        set_big_LED_b(layer_state_is(2) ? LED_ON : LED_OFF);
-        // Green LED for layer 3
-        set_big_LED_g(layer_state_is(3) ? LED_ON : LED_OFF);
+
+        if (led_state.caps_lock) {
+            // This function is a defult QMK function.
+            // It checks the status of CAPS/NUM/SCROLL lock.
+            // Use Big LED red to show CAPS LOCK status.
+            // Has precedence over blue/green Big LED indicating layers.
+            set_big_LED_r(LED_ON);
+            set_big_LED_b(LED_OFF);
+            //set_big_LED_g(LED_OFF);
+        }
+        else if (layer_state_is(2)) {
+            // Big LED blue for layer 2
+            set_big_LED_b(LED_ON);
+            set_big_LED_r(LED_OFF);
+            //set_big_LED_g(LED_OFF);
+        }
+        else {
+            // no LED for layer 0
+            set_big_LED_r(LED_OFF);
+            set_big_LED_b(LED_OFF);
+            //set_big_LED_g(LED_OFF);
+        }
+
     }
     return res;
 }
