@@ -20,6 +20,7 @@
 
 enum custom_keycodes {
   KC_CUST = SAFE_RANGE,
+  KC_NEWLINE,
   LATEX_PAREN,
   LATEX_SQBRA,
   LATEX_CURLYBRA
@@ -37,8 +38,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             TG(2), KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_PGDN,
             KC_INS, KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, MO(1), KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT),
 	[1] = LAYOUT_ansi(RESET, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_PSCR,
-            RGB_TOG, KC_TRNS, LALT(KC_F4), KC_MINS, KC_LBRC, KC_RBRC, KC_TRNS, LCTL(KC_LEFT), KC_TRNS, KC_TRNS, LCTL(KC_RGHT) , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_INS,
-            KC_TRNS, KC_TRNS, KC_TRNS, KC_PLUS, KC_LPRN, KC_RPRN, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_TRNS, KC_TRNS, KC_EQL, KC_HOME,
+            RGB_TOG, KC_TRNS, LALT(KC_F4), KC_MINS, KC_LBRC, KC_RBRC, KC_TRNS, LCTL(KC_LEFT), KC_HOME, KC_NEWLINE, LCTL(KC_RGHT) , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_INS,
+            KC_TRNS, KC_TRNS, KC_END, KC_PLUS, KC_LPRN, KC_RPRN, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_TRNS, KC_TRNS, KC_EQL, KC_HOME,
             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LCBR, KC_RCBR, KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_END,
             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_UNDS, KC_TRNS, KC_APP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 	[2] = LAYOUT_ansi(KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, LATEX_PAREN, LATEX_PAREN, KC_MINS, KC_EQL, KC_BSPC, KC_ESC,
@@ -59,6 +60,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
       }
     break;
+          
+    case KC_NEWLINE:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING(SS_TAP(X_END) SS_TAP(X_ENT));
+      }
+      break;
     
     case LATEX_PAREN:
       if (record->event.pressed) {
