@@ -38,7 +38,19 @@ enum custom_keycodes {
   LATEX_N,
   LATEX_Z,
   LATEX_FRAC,
-  LATEX_BOLD
+  LATEX_BOLD,
+  LATEX_BOLDSYMBOL,
+  LATEX_MATHRM,
+  LATEX_MATHCAL,
+  LATEX_SUP,
+  LATEX_SUB,
+  LATEX_ALPHA,
+  LATEX_BETA,
+  LATEX_EPS,
+  LATEX_LAM,
+  LATEX_GAM,
+  LATEX_PHI,
+  LATEX_XI
 };
 
 /* THIS FILE WAS GENERATED!
@@ -55,12 +67,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[1] = LAYOUT_ansi(RESET, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_PSCR,
             RGB_TOG, LGUI(LCTL(KC_RGHT)), LALT(KC_F4), KC_TRNS, LCTL(KC_RGHT), AUTOCLOS_SQBRA, KC_TRNS, LCTL(KC_INS), KC_TRNS, KC_HOME, KC_NEWLINE, LSFT(KC_INS), KC_TRNS, KC_TRNS, KC_TRNS, KC_INS,
             KC_TRNS, KC_TRNS, KC_END, LCTL(KC_S), KC_DEL, AUTOCLOS_PAREN, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_TRNS, AUTOCLOS_QUOTE, KC_EQL, KC_HOME,
-            KC_TRNS, LGUI(LCTL(KC_LEFT)), KC_TRNS, KC_TRNS, KC_TRNS, AUTOCLOS_CURLYBRA, LCTL(KC_LEFT), KC_TRNS, KC_TRNS, KC_TRNS, KC_ELLIPSIS, KC_PQUESTION, KC_TRNS, KC_PGUP, KC_END,
+            KC_TRNS, LGUI(LCTL(KC_LEFT)), KC_TRNS, KC_TRNS, KC_TRNS, AUTOCLOS_CURLYBRA, LCTL(KC_LEFT), KC_TRNS, KC_MENU, KC_TRNS, KC_ELLIPSIS, KC_PQUESTION, KC_TRNS, KC_PGUP, KC_END,
             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_UNDS, KC_TRNS, KC_APP, KC_TRNS, LCTL(KC_LEFT), KC_PGDN, LCTL(KC_RGHT)),
-	[2] = LAYOUT_ansi(KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, LATEX_PROD, LATEX_PAREN, LATEX_PAREN, KC_MINS, LATEX_SUM, KC_BSPC, KC_ESC,
-            KC_MUTE, KC_TAB, KC_Q, KC_W, KC_E, LATEX_R, KC_T, KC_Y, KC_U, LATEX_INT, KC_O, KC_P, LATEX_SQBRA, LATEX_CURLYBRA, LATEX_NORM, KC_DEL,
-            KC_NO, KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_PGUP,
-            KC_TRNS, KC_LSFT, LATEX_Z, KC_X, KC_C, KC_V, LATEX_BOLD, LATEX_N, KC_M, KC_COMM, KC_DOT, LATEX_FRAC, KC_RSFT, KC_UP, KC_PGDN,
+	[2] = LAYOUT_ansi(KC_GRV, LATEX_BOLD, LATEX_BOLDSYMBOL, LATEX_MATHRM, LATEX_MATHCAL, KC_5, LATEX_SUP, KC_7, LATEX_PROD, LATEX_PAREN, LATEX_PAREN, LATEX_SUB, LATEX_SUM, KC_BSPC, KC_ESC,
+            KC_MUTE, KC_TAB, KC_Q, KC_W, LATEX_EPS, LATEX_R, KC_T, KC_Y, KC_U, LATEX_INT, KC_O, KC_P, LATEX_SQBRA, LATEX_CURLYBRA, LATEX_NORM, KC_DEL,
+            KC_NO, KC_CAPS, LATEX_ALPHA, KC_S, KC_D, LATEX_PHI, LATEX_GAM, KC_H, KC_J, KC_K, LATEX_LAM, KC_SCLN, KC_QUOT, KC_ENT, KC_PGUP,
+            KC_TRNS, KC_LSFT, LATEX_Z, LATEX_XI, KC_C, KC_V, LATEX_BETA, LATEX_N, KC_M, KC_COMM, KC_DOT, LATEX_FRAC, KC_RSFT, KC_UP, KC_PGDN,
             KC_INS, KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, MO(1), KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT)
 };
 /* 
@@ -181,6 +193,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
+    case LATEX_BOLDSYMBOL:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("\\boldsymbol{}" SS_TAP(X_LEFT));
+      }
+      break;
+
+    case LATEX_MATHRM:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("\\mathrm{}" SS_TAP(X_LEFT));
+      }
+      break;
+
+    case LATEX_MATHCAL:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("\\mathcal{}" SS_TAP(X_LEFT));
+      }
+      break;
+
+    case LATEX_SUP:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("^{}" SS_TAP(X_LEFT));
+      }
+      break;
+
+    case LATEX_SUB:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("_{}" SS_TAP(X_LEFT));
+      }
+      break;
+
     case LATEX_NORM:
       if (record->event.pressed) {
           // when keycode is pressed
@@ -206,6 +253,61 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
           // when keycode is pressed
           SEND_STRING("\\mathbb{Z}");
+      }
+      break;
+
+    case LATEX_ALPHA:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("\\alpha");
+      }
+      break;
+
+
+    case LATEX_BETA:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("\\beta");
+      }
+      break;
+
+
+    case LATEX_EPS:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("\\varepsilon");
+      }
+      break;
+
+
+    case LATEX_LAM:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("\\lambda");
+      }
+      break;
+
+
+    case LATEX_GAM:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("\\gamma");
+      }
+      break;
+
+
+    case LATEX_PHI:
+      if (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("\\varphi");
+      }
+      break;
+
+
+    case LATEX_XI
+      :f (record->event.pressed) {
+          // when keycode is pressed
+          SEND_STRING("\\xi");
       }
       break;
 
