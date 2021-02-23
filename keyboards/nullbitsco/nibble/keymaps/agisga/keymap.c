@@ -304,8 +304,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
 
-    case LATEX_XI
-      :f (record->event.pressed) {
+    case LATEX_XI:
+      if (record->event.pressed) {
           // when keycode is pressed
           SEND_STRING("\\xi");
       }
